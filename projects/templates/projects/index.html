@@ -1,0 +1,196 @@
+{% load static %}
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Mamma Mia — столовая на Комсомола</title>
+  <link rel="stylesheet" href="{% static 'styles/styles.css' %}">
+</head>
+<body>
+  <div class="app" id="top">
+    <div class="wrap">
+      <nav class="nav">
+        <a class="brand" href="#top"><span class="brand-mark">M</span><span>Mamma Mia</span></a>
+        <div class="navlinks">
+          <a href="#about">О нас</a>
+          <a href="#menu">Меню</a>
+          <a href="#atmosphere">Атмосфера</a>
+          <a href="#visit">Как найти</a>
+        </div>
+        <button class="navcta" onclick="openModal()">Позвонить</button>
+      </nav>
+      
+      <header class="hero">
+        <div>
+          <div class="eyebrow">Комсомола, 13 · Санкт-Петербург</div>
+          <h1>Еда,<br>как <em>дома.</em></h1>
+          <p class="lead">Большой светлый зал, домашняя кухня, свежая выпечка и тот самый обед, после которого хочется немного задержаться.</p>
+          <div class="actions">
+            <a class="btn primary" href="#menu">Смотреть меню ↓</a>
+            <a class="btn secondary" href="tel:+79112199715">+7 911 219-97-15</a>
+          </div>
+        </div>
+        <div class="hero-card" aria-label="Стилизованная иллюстрация блюда">
+          <div class="plate"></div>
+          <div class="crumb"></div>
+          <div class="card-caption">
+            <span>свежо · просто · по-доброму</span>
+            <span>07:00—21:00</span>
+          </div>
+        </div>
+      </header>
+    </div>
+    
+    <div class="strip">
+      <div class="strip-track">
+        <span>домашняя кухня</span><span>свежая выпечка</span><span>большие порции</span>
+        <span>завтраки</span><span>обеды</span><span>кофе и компот</span>
+        <span>домашняя кухня</span><span>свежая выпечка</span><span>большие порции</span>
+        <span>завтраки</span><span>обеды</span><span>кофе и компот</span>
+        <span>домашняя кухня</span><span>свежая выпечка</span><span>большие порции</span>
+        <span>завтраки</span><span>обеды</span><span>кофе и компот</span>
+      </div>
+    </div>
+    
+    <main class="wrap">
+      <section id="about">
+        <div class="section-head">
+          <h2>Не просто<br>столовая.</h2>
+          <p>По отзывам гостей, сюда приходят за просторным светлым залом, понятной едой и ощущением, что о тебе позаботились. Интерьер — аккуратный, современный и неожиданно нарядный для формата столовой.</p>
+        </div>
+        <div class="story">
+          <p class="quote">«Чисто, уютно, вкусно — и порции как дома»</p>
+          <div class="story-copy">Здесь не нужно придумывать повод. Можно забежать на завтрак, собрать полноценный обед, взять выпечку с собой или спокойно посидеть вечером. На карточке заведения указаны кафе и столовая; рядом — площадь Ленина и Финляндский вокзал.</div>
+        </div>
+        <div class="stats">
+          <div class="stat"><b>07—21</b><span>ежедневно</span></div>
+          <div class="stat"><b>680 м</b><span>до метро «Площадь Ленина»</span></div>
+          <div class="stat"><b>5.0</b><span>рейтинг в Яндекс Картах на момент проверки</span></div>
+        </div>
+      </section>
+      
+      <section id="menu">
+        <div class="section-head">
+          <h2>Что взять<br>сегодня?</h2>
+          <p>Ниже — не официальный прайс-лист, а эстетичная витрина характерных позиций и хитов, которые гости упоминают в отзывах. Актуальный ассортимент меняется.</p>
+        </div>
+        <div class="menu-tabs">
+          <button class="tab active" data-filter="all">Всё</button>
+          <button class="tab" data-filter="breakfast">Завтрак</button>
+          <button class="tab" data-filter="lunch">Обед</button>
+          <button class="tab" data-filter="bakery">Выпечка</button>
+          <button class="tab" data-filter="sweet">Сладкое</button>
+        </div>
+        <div class="menu-grid" id="menuGrid">
+          <article class="dish" data-cat="breakfast">
+            <div class="dish-top"><small>Завтрак</small><div class="dish-icon">☀</div></div>
+            <div><h3>Блины</h3><p>Тёплые, домашние, чтобы начать день без спешки.</p></div>
+          </article>
+          <article class="dish" data-cat="lunch">
+            <div class="dish-top"><small>Обед</small><div class="dish-icon">🥣</div></div>
+            <div><h3>Борщ</h3><p>Классика домашней кухни, которую гости часто отмечают.</p></div>
+          </article>
+          <article class="dish" data-cat="lunch">
+            <div class="dish-top"><small>Обед</small><div class="dish-icon">🍽</div></div>
+            <div><h3>Куриные котлеты</h3><p>Одна из самых часто упоминаемых позиций в отзывах.</p></div>
+          </article>
+          <article class="dish" data-cat="lunch">
+            <div class="dish-top"><small>Холодное</small><div class="dish-icon">♨</div></div>
+            <div><h3>Салаты</h3><p>Есть самые классические — позиции лучше уточнить на месте.</p></div>
+          </article>
+          <article class="dish" data-cat="bakery">
+            <div class="dish-top"><small>Выпечка</small><div class="dish-icon">🥐</div></div>
+            <div><h3>Свежая выпечка</h3><p>Пирожки и булочки — отдельная причина заглянуть по дороге.</p></div>
+          </article>
+          <article class="dish" data-cat="sweet">
+            <div class="dish-top"><small>Десерт</small><div class="dish-icon">🍰</div></div>
+            <div><h3>Наполеон</h3><p>Слоёный десерт с кремом — один из сладких фаворитов гостей.</p></div>
+          </article>
+        </div>
+      </section>
+      
+      <section id="atmosphere">
+        <div class="section-head">
+          <h2>Свет,<br>дерево, зелень.</h2>
+          <p>Визуальный язык сайта повторяет то, что считывается по фотографиям заведения: светлый интерьер, натуральные фактуры, геометрический пол и много растений.</p>
+        </div>
+        <div class="photo-row">
+          <div class="photo large"><span class="label">светлый зал · натуральное дерево</span></div>
+          <div class="photo"><span class="label">зелень · спокойный ритм</span></div>
+          <div class="photo"><span class="label">тёплые детали</span></div>
+        </div>
+      </section>
+      
+      <section>
+        <div class="section-head">
+          <h2>Гости<br>говорят.</h2>
+          <p>Несколько коротких впечатлений из опубликованных отзывов. Формулировки сокращены и слегка отредактированы для дизайна.</p>
+        </div>
+        <div class="review-grid">
+          <div class="review">
+            <div class="stars">★★★★★</div>
+            <p>«Очень понравился интерьер: уютно, со вкусом. Зал чистый, выбор блюд большой»</p>
+            <small>Яндекс Карты · отзыв посетителя</small>
+          </div>
+          <div class="review">
+            <div class="stars">★★★★★</div>
+            <p>«Спокойная тихая обстановка, всё свежее и приготовлено с душой»</p>
+            <small>Яндекс Карты · отзыв посетителя</small>
+          </div>
+          <div class="review">
+            <div class="stars">★★★★★</div>
+            <p>«Приятная атмосфера, просторно, два зала и очень большой выбор»</p>
+            <small>2ГИС · отзыв посетителя</small>
+          </div>
+        </div>
+      </section>
+      
+      <section id="visit">
+        <div class="section-head">
+          <h2>Заходите<br>в гости.</h2>
+          <p>Сохранили главное на одном экране: адрес, часы и телефон. Кнопка маршрута ведёт на карточку заведения в Яндекс Картах.</p>
+        </div>
+        <div class="visit">
+          <div class="visit-card">
+            <h3>Mama Mia</h3>
+            <div class="info">
+              <div class="info-row"><span>Адрес</span><span>ул. Комсомола, 13<br>Санкт-Петербург</span></div>
+              <div class="info-row"><span>Часы</span><span>ежедневно<br>07:00—21:00</span></div>
+              <div class="info-row"><span>Телефон</span><span>+7 911 219-97-15</span></div>
+              <div class="info-row"><span>Метро</span><span>Площадь Ленина<br>≈ 680 м</span></div>
+            </div>
+            <div class="actions" style="margin-top:30px">
+              <a class="btn primary" href="https://yandex.ru/maps/-/CXUKA-nM" target="_blank">Открыть карту ↗</a>
+              <a class="btn secondary" href="tel:+79112199715">Позвонить</a>
+            </div>
+          </div>
+          <div class="map">
+            <div class="pin"></div>
+            <div class="map-label">Комсомола, 13 · рядом с Площадью Ленина</div>
+          </div>
+        </div>
+      </section>
+    </main>
+    
+    <div class="wrap">
+      <footer class="footer">
+        <span>© Mama Mia · Санкт-Петербург</span>
+        <span>Сделано с любовью к простым вещам.</span>
+      </footer>
+    </div>
+  </div>
+  
+  <div class="modal" id="modal">
+    <div class="modal-box">
+      <button class="close" onclick="closeModal()">×</button>
+      <h3>Связаться с Mama Mia</h3>
+      <p>Самый быстрый способ — позвонить по номеру заведения.</p>
+      <a class="btn primary" href="tel:+79112199715">+7 911 219-97-15</a>
+      <p class="tiny">На сайте использованы общедоступные сведения о заведении и обобщённые впечатления из отзывов. Это концепт дизайна, а не официальный сайт.</p>
+    </div>
+  </div>
+
+  <script src="{% static 'uikit/styles/app.js' %}"></script>
+</body>
+</html>
