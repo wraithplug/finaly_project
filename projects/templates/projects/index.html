@@ -123,29 +123,129 @@
       </section>
       
       <section>
-        <div class="section-head">
-          <h2>Гости<br>говорят.</h2>
-          <p>Несколько коротких впечатлений из опубликованных отзывов. Формулировки сокращены и слегка отредактированы для дизайна.</p>
-        </div>
         <div class="review-grid">
-          <div class="review">
-            <div class="stars">★★★★★</div>
-            <p>«Очень понравился интерьер: уютно, со вкусом. Зал чистый, выбор блюд большой»</p>
-            <small>Яндекс Карты · отзыв посетителя</small>
-          </div>
-          <div class="review">
-            <div class="stars">★★★★★</div>
-            <p>«Спокойная тихая обстановка, всё свежее и приготовлено с душой»</p>
-            <small>Яндекс Карты · отзыв посетителя</small>
-          </div>
-          <div class="review">
-            <div class="stars">★★★★★</div>
-            <p>«Приятная атмосфера, просторно, два зала и очень большой выбор»</p>
-            <small>2ГИС · отзыв посетителя</small>
+  {% for review in reviews %}
+  <div class="review">
+    <div class="stars">
+      {% if review.rating == 5 %}★★★★★
+      {% elif review.rating == 4 %}★★★★
+      {% elif review.rating == 3 %}★★★
+      {% elif review.rating == 2 %}★★
+      {% else %}★
+      {% endif %}
+    </div>
+    <p>«{{ review.text }}»</p>
+    <small>
+      {% if review.source %}{{ review.source }} · {% endif %}{{ review.name }}
+    </small>
+  </div>
+  {% empty %}
+  {% endfor %}
+</div>
+      </section>
+
+
+<section id="booking" class="booking-section">
+  <div class="section-head">
+    <h2>Выбери<br>свой столик.</h2>
+    <p>Выбери место, дату и время. Остальное мы берём на себя.</p>
+  </div>
+
+  <div class="booking-widget">
+    <div class="booking-left">
+      <div class="booking-heading">
+        <span class="booking-step">01 / ВЫБОР МЕСТА</span>
+        <span class="booking-legend"><i></i> Свободен</span>
+      </div>
+
+      <div class="booking-tables" id="bookingTables">
+
+
+    {% for table in tables %}
+    <button type="button"
+            class="booking-table"
+            data-id="{{ table.id }}"
+            data-number="{{ table.number }}"
+            data-seats="{{ table.seats }}">
+        Столик {{ table.number }}
+        <small>{{ table.seats }} мест</small>
+    </button>
+{% empty %}
+    <p>Пока нет доступных столиков.</p>
+{% endfor %}
+
+      <p class="booking-hint" id="bookingHint">
+        Нажми на столик, чтобы выбрать его
+      </p>
+    </div>
+
+    <div class="booking-right">
+      <span class="booking-step">02 / ДЕТАЛИ ВИЗИТА</span>
+      <h3>Когда тебя ждать?</h3>
+
+      <form method="post" id="quickBooking">
+        {% csrf_token %}
+
+        <input type="hidden" name="table" id="bookingTableId" required>
+
+        <label class="booking-field">
+          <span>Твоё имя</span>
+          <input type="text" name="name"
+                 placeholder="Как к тебе обращаться"
+                 maxlength="200" required>
+        </label>
+
+        <label class="booking-field">
+          <span>Email</span>
+          <input type="email" name="email"
+                 placeholder="name@yandex.ru"
+                 maxlength="200">
+        </label>
+
+        <div class="booking-row">
+          <label class="booking-field">
+            <span>Дата</span>
+            <input type="date" name="date" id="bookingDate" required>
+          </label>
+
+          <label class="booking-field">
+            <span>Время</span>
+            <input type="time" name="time" id="bookingTime" required>
+          </label>
+        </div>
+
+        <label class="booking-field">
+          <span>Количество гостей</span>
+          <input type="number" name="guests" id="bookingGuests"
+                 min="1" max="20" value="2" required>
+        </label>
+
+        <label class="booking-field">
+          <span>Пожелания <small>необязательно</small></span>
+          <textarea name="comment" rows="2"
+                    placeholder="Например, столик у окна"></textarea>
+        </label>
+
+        <div class="booking-summary" id="bookingSummary">
+          <span>✳</span>
+          <div>
+            <strong id="bookingSummaryTitle">Твой столик ждёт выбора</strong>
+            <small id="bookingSummaryText">Выбери место слева</small>
           </div>
         </div>
-      </section>
-      
+
+        <button type="submit" class="booking-submit">
+          Забронировать <span>↗</span>
+        </button>
+
+        <p class="booking-error" id="bookingError" role="alert"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+
+
       <section id="visit">
         <div class="section-head">
           <h2>Заходите<br>в гости.</h2>
@@ -153,7 +253,7 @@
         </div>
         <div class="visit">
           <div class="visit-card">
-            <h3>Mama Mia</h3>
+            <h3>Mamma Mia</h3>
             <div class="info">
               <div class="info-row"><span>Адрес</span><span>ул. Комсомола, 13<br>Санкт-Петербург</span></div>
               <div class="info-row"><span>Часы</span><span>ежедневно<br>07:00—21:00</span></div>
@@ -175,7 +275,7 @@
     
     <div class="wrap">
       <footer class="footer">
-        <span>© Mama Mia · Санкт-Петербург</span>
+        <span>© Mamma Mia · Санкт-Петербург</span>
         <span>Сделано с любовью к простым вещам.</span>
       </footer>
     </div>
@@ -184,7 +284,7 @@
   <div class="modal" id="modal">
     <div class="modal-box">
       <button class="close" onclick="closeModal()">×</button>
-      <h3>Связаться с Mama Mia</h3>
+      <h3>Связаться с Mamma Mia</h3>
       <p>Самый быстрый способ — позвонить по номеру заведения.</p>
       <a class="btn primary" href="tel:+79112199715">+7 911 219-97-15</a>
       <p class="tiny">На сайте использованы общедоступные сведения о заведении и обобщённые впечатления из отзывов. Это концепт дизайна, а не официальный сайт.</p>

@@ -27,8 +27,6 @@ load_dotenv()
 SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG') == 'True'
-# DEBUG = True
-# SECRET_KEY = 'django-insecure-mamma-mia-restoran-dev-key-123456789'
 
 ALLOWED_HOSTS = []
 
@@ -109,7 +107,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/6.1/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "Ru-ru"
 
 TIME_ZONE = "UTC"
 
