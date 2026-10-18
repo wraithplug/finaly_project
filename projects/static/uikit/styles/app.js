@@ -1,5 +1,5 @@
-document.addEventListener("DOMContentLoaded", () => {
 
+document.addEventListener("DOMContentLoaded", () => {
     const tabs = document.querySelectorAll(".tab");
     const dishes = document.querySelectorAll(".dish");
 
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    const cards = document.querySelectorAll(".booking-table");
+    const cards = [...document.querySelectorAll(".booking-table")];
     const tableInput = document.getElementById("bookingTableId");
     const guestsInput = document.getElementById("bookingGuests");
     const dateInput = document.getElementById("bookingDate");
@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!form || !tableInput) return;
 
-    let selected = null;
+    const selectedTables = new Set();
 
     const today = new Date();
     const localDate = [
@@ -61,14 +61,50 @@ document.addEventListener("DOMContentLoaded", () => {
         dateInput.min = localDate;
     }
 
-    function updateSummary() {
+    function updateBooking() {
+        const selected = cards.filter((card) =>
+            selectedTables.has(card.dataset.id)
+        );
+
+        // Передаём все ID через запятую
+        tableInput.value = selected
+            .map((card) => card.dataset.id)
+            .join(",");
+
+        const numbers = selected.map(
+            (card) => card.dataset.number
+        );
+
+        const totalSeats = selected.reduce(
+            (sum, card) => sum + Number(card.dataset.seats || 0),
+            0
+        );
+
+        cards.forEach((card) => {
+            const isSelected = selectedTables.has(card.dataset.id);
+            card.classList.toggle("selected", isSelected);
+            card.classList.toggle("active", isSelected);
+            card.setAttribute("aria-pressed", String(isSelected));
+        });
+
+        if (hint) {
+            hint.textContent = selected.length
+                ? `Выбрано столиков: ${selected.length}`
+                : "Нажми на столик, чтобы выбрать его";
+        }
+
         if (summaryTitle) {
-            summaryTitle.textContent = selected
-                ? `Столик №${selected.dataset.number} выбран`
-                : "Твой столик ждёт выбора";
+            summaryTitle.textContent = selected.length
+                ? `Выбрано столиков: ${selected.length}`
+                : "Твои столики ждут выбора";
         }
 
         const parts = [];
+
+        if (numbers.length) {
+            parts.push(`№ ${numbers.join(", ")}`);
+            parts.push(`${totalSeats} мест всего`);
+        }
 
         if (dateInput?.value) {
             parts.push(
@@ -88,80 +124,114 @@ document.addEventListener("DOMContentLoaded", () => {
         if (summaryText) {
             summaryText.textContent = parts.length
                 ? parts.join(" · ")
-                : "Выбери место, дату и время";
+                : "Выбери места слева";
+        }
+
+        if (guestsInput) {
+            if (selected.length) {
+                guestsInput.max = totalSeats;
+
+                if (Number(guestsInput.value) > totalSeats) {
+                    guestsInput.value = totalSeats;
+                }
+            } else {
+                guestsInput.removeAttribute("max");
+            }
         }
     }
 
     cards.forEach((card) => {
         card.addEventListener("click", () => {
-            selected = card;
-            tableInput.value = card.dataset.id;
+            const id = card.dataset.id;
 
-            cards.forEach((item) => {
-                const active = item === card;
-                item.classList.toggle("selected", active);
-                item.setAttribute("aria-pressed", String(active));
-            });
-
-            const seats = Number(card.dataset.seats);
-
-            if (guestsInput && seats > 0) {
-                guestsInput.max = seats;
-
-                if (Number(guestsInput.value) > seats) {
-                    guestsInput.value = seats;
-                }
+            if (!id) {
+                console.error("У столика отсутствует data-id:", card);
+                return;
             }
 
-            if (hint) {
-                hint.textContent =
-                    `Выбран столик №${card.dataset.number} · ${seats} мест`;
+            if (selectedTables.has(id)) {
+                selectedTables.delete(id);
+            } else {
+                selectedTables.add(id);
             }
 
-            updateSummary();
+            if (error) {
+                error.textContent = "";
+            }
+
+            updateBooking();
+
+            console.log(
+                "Выбранные ID столиков:",
+                tableInput.value
+            );
         });
     });
 
     [dateInput, timeInput, guestsInput].forEach((input) => {
-        input?.addEventListener("input", updateSummary);
-        input?.addEventListener("change", updateSummary);
+        input?.addEventListener("input", updateBooking);
+        input?.addEventListener("change", updateBooking);
     });
 
     form.addEventListener("submit", (event) => {
-        if (error) error.textContent = "";
+        if (error) {
+            error.textContent = "";
+        }
 
-        if (!tableInput.value || !selected) {
+        const selected = cards.filter((card) =>
+            selectedTables.has(card.dataset.id)
+        );
+
+        if (!selected.length) {
             event.preventDefault();
+            if (error) error.textContent = "Сначала выбери столик.";
+            hint?.scrollIntoView({ behavior: "smooth", block: "center" });
+            return;
+        }
 
+        if (
+            !timeInput?.value ||
+            timeInput.value < "07:00" ||
+            timeInput.value > "21:00"
+        ) {
+            event.preventDefault();
             if (error) {
-                error.textContent = "Сначала выбери столик.";
+                error.textContent =
+                    "Ресторан принимает бронирования с 07:00 до 21:00.";
             }
-
-            hint?.scrollIntoView({
-                behavior: "smooth",
-                block: "center"
-            });
-
             return;
         }
 
         const guests = Number(guestsInput?.value || 0);
-        const seats = Number(selected.dataset.seats || 0);
+        const totalSeats = selected.reduce(
+            (sum, card) => sum + Number(card.dataset.seats || 0),
+            0
+        );
 
-        if (guests < 1 || guests > seats) {
+        if (
+            !Number.isInteger(guests) ||
+            guests < 1 ||
+            guests > totalSeats
+        ) {
             event.preventDefault();
-
             if (error) {
                 error.textContent =
-                    `За этим столиком помещается от 1 до ${seats} гостей.`;
+                    `У выбранных столиков от 1 до ${totalSeats} мест.`;
             }
-
             return;
         }
 
-        if (dateInput?.value && dateInput.value < localDate) {
+        if (!dateInput?.value || !timeInput?.value) {
             event.preventDefault();
+            if (error) {
+                error.textContent =
+                    "Выбери дату и время бронирования.";
+            }
+            return;
+        }
 
+        if (dateInput.value < localDate) {
+            event.preventDefault();
             if (error) {
                 error.textContent =
                     "Выбери сегодняшнюю или будущую дату.";
@@ -169,5 +239,5 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    updateSummary();
+    updateBooking();
 });

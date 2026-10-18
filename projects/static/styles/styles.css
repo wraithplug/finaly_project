@@ -558,3 +558,271 @@ section { padding: 100px 0; }
         transition: none;
     }
 }
+
+#bookingTables {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 16px;
+}
+
+#bookingTables .booking-table {
+    aspect-ratio: 1 / 1;
+    min-width: 0;
+    min-height: 0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+@media (max-width: 600px) {
+    #bookingTables {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+    }
+}
+
+
+/* Универсальная сетка столиков */
+#bookingTables {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 16px;
+    width: 100%;
+    padding: 20px 0;
+    box-sizing: border-box;
+    align-items: stretch;
+}
+
+/* Единая форма для всех столиков */
+#bookingTables .booking-table {
+    appearance: none;
+    -webkit-appearance: none;
+
+    width: 100%;
+    min-width: 0;
+    height: 125px;
+    min-height: 0;
+    aspect-ratio: auto;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    padding: 12px;
+    border: 1px solid #dedbcf;
+    border-radius: 18px;
+
+    background: #f7f5ed;
+    color: #393d2e;
+    box-shadow: 0 3px 10px rgba(48, 51, 37, 0.05);
+
+    cursor: pointer;
+    transition: background 0.2s ease,
+                border-color 0.2s ease,
+                box-shadow 0.2s ease;
+}
+
+#bookingTables .booking-table-number {
+    display: block;
+    font-size: clamp(22px, 2vw, 30px);
+    font-weight: 600;
+    line-height: 1.1;
+}
+
+#bookingTables .booking-table small {
+    font-size: 13px;
+    line-height: 1.3;
+    color: #858574;
+}
+
+#bookingTables .booking-table:hover {
+    background: #eeecdf;
+    border-color: #777b61;
+    box-shadow: 0 5px 14px rgba(48, 51, 37, 0.09);
+}
+
+#bookingTables .booking-table[aria-pressed="true"] {
+    background: #393f2e;
+    border-color: #393f2e;
+    color: #fffdf5;
+}
+
+#bookingTables .booking-table[aria-pressed="true"] small {
+    color: #e0e2d4;
+}
+
+#bookingTables .booking-table:focus-visible {
+    outline: 3px solid #969b78;
+    outline-offset: 3px;
+}
+
+/* Небольшие ноутбуки и планшеты */
+@media (max-width: 1000px) {
+    #bookingTables {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    #bookingTables .booking-table {
+        height: 115px;
+        border-radius: 16px;
+    }
+}
+
+/* Телефоны */
+@media (max-width: 600px) {
+    #bookingTables {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        padding: 14px 0;
+    }
+
+    #bookingTables .booking-table {
+        height: 105px;
+        padding: 10px;
+        border-radius: 14px;
+    }
+
+    #bookingTables .booking-table-number {
+        font-size: 24px;
+    }
+
+    #bookingTables .booking-table small {
+        font-size: 12px;
+    }
+}
+
+/* Очень узкие экраны */
+
+@media (max-width: 350px) {
+    #bookingTables {
+        gap: 8px;
+    }
+
+    #bookingTables .booking-table {
+        height: 95px;
+        padding: 6px;
+    }
+}
+
+/* ВСТАВЬ МОЙ КОД НИЖЕ ЭТОЙ СТРОКИ */
+
+/* Основная секция бронирования */
+.booking-section {
+    background: var(--bg);
+    color: var(--ink);
+}
+
+/* Карточка бронирования */
+.booking-widget {
+    background: var(--paper);
+    border-color: var(--line);
+}
+
+.booking-left {
+    background: var(--cream);
+    border-color: var(--line);
+}
+
+.booking-right {
+    background: var(--paper);
+}
+
+/* Столики */
+#bookingTables .booking-table {
+    background: var(--paper);
+    color: var(--ink);
+    border-color: var(--line);
+}
+
+#bookingTables .booking-table:hover {
+    background: var(--cream);
+    border-color: var(--accent2);
+}
+
+#bookingTables .booking-table[aria-pressed="true"] {
+    background: var(--accent2);
+    border-color: var(--accent2);
+    color: var(--bg);
+}
+
+#bookingTables .booking-table small {
+    color: var(--muted);
+}
+
+#bookingTables .booking-table[aria-pressed="true"] small {
+    color: var(--bg);
+}
+
+/* Текст */
+.booking-section .section-head p,
+.booking-step,
+.booking-legend,
+.booking-hint {
+    color: var(--muted);
+}
+
+.booking-section .section-head h2,
+.booking-right h3 {
+    color: var(--ink);
+}
+
+/* Поля ввода */
+.booking-field > span {
+    color: var(--ink);
+}
+
+.booking-field > span small {
+    color: var(--muted);
+}
+
+.booking-field input,
+.booking-field textarea,
+.booking-field select {
+    color: var(--ink);
+    background: var(--bg);
+    border-color: var(--line);
+}
+
+.booking-field input::placeholder,
+.booking-field textarea::placeholder {
+    color: var(--muted);
+}
+
+/* Информация о бронировании */
+.booking-summary {
+    background: var(--cream);
+    border-color: var(--line);
+}
+
+.booking-summary > span {
+    background: var(--paper);
+    color: var(--accent2);
+}
+
+.booking-summary strong {
+    color: var(--ink);
+}
+
+.booking-summary small {
+    color: var(--muted);
+}
+
+/* Кнопка бронирования */
+.booking-submit {
+    background: var(--ink);
+    color: var(--bg);
+    border-color: var(--ink);
+}
+
+.booking-submit:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fffdf8;
+}

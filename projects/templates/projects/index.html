@@ -16,6 +16,7 @@
           <a href="#about">О нас</a>
           <a href="#menu">Меню</a>
           <a href="#atmosphere">Атмосфера</a>
+          <a href="#booking">Бронь столика</a>
           <a href="#visit">Как найти</a>
         </div>
         <button class="navcta" onclick="openModal()">Позвонить</button>
@@ -140,9 +141,11 @@
     </small>
   </div>
   {% empty %}
+  <div class="reviews-empty">Отзывы скоро появятся.</div>
   {% endfor %}
 </div>
       </section>
+
 
 
 <section id="booking" class="booking-section">
@@ -152,6 +155,8 @@
   </div>
 
   <div class="booking-widget">
+
+    <!-- Левая часть: выбор столика -->
     <div class="booking-left">
       <div class="booking-heading">
         <span class="booking-step">01 / ВЫБОР МЕСТА</span>
@@ -159,26 +164,96 @@
       </div>
 
       <div class="booking-tables" id="bookingTables">
+  <button type="button" class="booking-table" data-id="1" data-number="1" data-seats="4" aria-pressed="false">
+    <span class="booking-table-number">1</span>
+    <small>4 места</small>
+  </button>
+  <button type="button" class="booking-table" data-id="2" data-number="2" data-seats="4" aria-pressed="false">
+    <span class="booking-table-number">2</span>
+    <small>4 места</small>
+  </button>
+  <button type="button" class="booking-table" data-id="3" data-number="3" data-seats="4" aria-pressed="false">
+    <span class="booking-table-number">3</span>
+    <small>4 места</small>
+  </button>
+  <button type="button" class="booking-table" data-id="4" data-number="4" data-seats="4" aria-pressed="false">
+    <span class="booking-table-number">4</span>
+    <small>4 места</small>
+  </button>
+  <button type="button" class="booking-table" data-id="5" data-number="5" data-seats="4" aria-pressed="false">
+    <span class="booking-table-number">5</span>
+    <small>4 места</small>
+  </button>
+  <button type="button" class="booking-table" data-id="6" data-number="6" data-seats="4" aria-pressed="false">
+    <span class="booking-table-number">6</span>
+    <small>4 места</small>
+  </button>
+  <button type="button" class="booking-table" data-id="7" data-number="7" data-seats="4" aria-pressed="false">
+    <span class="booking-table-number">7</span>
+    <small>4 места</small>
+  </button>
+  <button type="button" class="booking-table" data-id="8" data-number="8" data-seats="4" aria-pressed="false">
+    <span class="booking-table-number">8</span>
+    <small>4 места</small>
+  </button>
+  <button type="button" class="booking-table" data-id="9" data-number="9" data-seats="4" aria-pressed="false">
+    <span class="booking-table-number">9</span>
+    <small>4 места</small>
+  </button>
+  <button type="button" class="booking-table" data-id="10" data-number="10" data-seats="4" aria-pressed="false">
+    <span class="booking-table-number">10</span>
+    <small>4 места</small>
+  </button>
+<button type="button" class="booking-table" data-id="11" data-number="11" data-seats="4" aria-pressed="false">
+    <span class="booking-table-number">11</span>
+    <small>4 места</small>
+</button>
+<button type="button" class="booking-table" data-id="12" data-number="12" data-seats="4" aria-pressed="false">
+    <span class="booking-table-number">12</span>
+    <small>4 места</small>
+</button>
+<button type="button" class="booking-table" data-id="13" data-number="13" data-seats="4" aria-pressed="false">
+    <span class="booking-table-number">13</span>
+    <small>4 места</small>
+</button>
+<button type="button" class="booking-table" data-id="14" data-number="14" data-seats="4" aria-pressed="false">
+    <span class="booking-table-number">14</span>
+    <small>4 места</small>
+</button>
+<button type="button" class="booking-table" data-id="15" data-number="15" data-seats="4" aria-pressed="false">
+    <span class="booking-table-number">15</span>
+    <small>4 места</small>
+</button>
+<button type="button" class="booking-table" data-id="16" data-number="16" data-seats="4" aria-pressed="false">
+    <span class="booking-table-number">16</span>
+    <small>4 места</small>
+</button>
+<button type="button" class="booking-table" data-id="17" data-number="17" data-seats="4" aria-pressed="false">
+    <span class="booking-table-number">17</span>
+    <small>4 места</small>
+</button>
+<button type="button" class="booking-table" data-id="18" data-number="18" data-seats="4" aria-pressed="false">
+    <span class="booking-table-number">18</span>
+    <small>4 места</small>
+</button>
+<button type="button" class="booking-table" data-id="19" data-number="19" data-seats="4" aria-pressed="false">
+    <span class="booking-table-number">19</span>
+    <small>4 места</small>
+</button>
+<button type="button" class="booking-table" data-id="20" data-number="20" data-seats="4" aria-pressed="false">
+    <span class="booking-table-number">20</span>
+    <small>4 места</small>
+</button>
 
 
-    {% for table in tables %}
-    <button type="button"
-            class="booking-table"
-            data-id="{{ table.id }}"
-            data-number="{{ table.number }}"
-            data-seats="{{ table.seats }}">
-        Столик {{ table.number }}
-        <small>{{ table.seats }} мест</small>
-    </button>
-{% empty %}
-    <p>Пока нет доступных столиков.</p>
-{% endfor %}
+</div>
 
       <p class="booking-hint" id="bookingHint">
         Нажми на столик, чтобы выбрать его
       </p>
     </div>
 
+    <!-- Правая часть: форма бронирования -->
     <div class="booking-right">
       <span class="booking-step">02 / ДЕТАЛИ ВИЗИТА</span>
       <h3>Когда тебя ждать?</h3>
@@ -190,16 +265,23 @@
 
         <label class="booking-field">
           <span>Твоё имя</span>
-          <input type="text" name="name"
-                 placeholder="Как к тебе обращаться"
-                 maxlength="200" required>
+          <input
+            type="text"
+            name="name"
+            placeholder="Как к тебе обращаться"
+            maxlength="200"
+            required
+          >
         </label>
 
         <label class="booking-field">
           <span>Email</span>
-          <input type="email" name="email"
-                 placeholder="name@yandex.ru"
-                 maxlength="200">
+          <input
+            type="email"
+            name="email"
+            placeholder="name@yandex.ru"
+            maxlength="200"
+          >
         </label>
 
         <div class="booking-row">
@@ -216,14 +298,24 @@
 
         <label class="booking-field">
           <span>Количество гостей</span>
-          <input type="number" name="guests" id="bookingGuests"
-                 min="1" max="20" value="2" required>
+          <input
+            type="number"
+            name="guests"
+            id="bookingGuests"
+            min="1"
+            max="20"
+            value="2"
+            required
+          >
         </label>
 
         <label class="booking-field">
           <span>Пожелания <small>необязательно</small></span>
-          <textarea name="comment" rows="2"
-                    placeholder="Например, столик у окна"></textarea>
+          <textarea
+            name="comment"
+            rows="2"
+            placeholder="Например, столик у окна"
+          ></textarea>
         </label>
 
         <div class="booking-summary" id="bookingSummary">
@@ -241,6 +333,7 @@
         <p class="booking-error" id="bookingError" role="alert"></p>
       </form>
     </div>
+
   </div>
 </section>
 
