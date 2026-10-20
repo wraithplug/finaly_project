@@ -1,6 +1,6 @@
 
 from django.contrib import admin
-from .models import Project,Review,Table
+from .models import Project,Review,Table,MenuItem
 # Register your models here.
 
 @admin.register(Review)
@@ -19,3 +19,9 @@ class TableAdmin(admin.ModelAdmin):
     list_display = ('number', 'seats', 'is_active')
     list_editable = ('seats', 'is_active')
     ordering = ('number',)
+
+@admin.register(MenuItem)
+class MenuItemAdmin(admin.ModelAdmin):
+    list_display = ('name','category','icon')
+    list_filter = ('category',)
+    search_fields = ('name','description')

@@ -1,16 +1,17 @@
+
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.conf import settings
 from django.core.mail import send_mail
 
-from .models import Review, Table
+from .models import Review, Table, MenuItem
 from .forms import ReservationForm
 
 
 def index(request):
     reviews = Review.objects.filter(is_published=True)
     tables = Table.objects.filter(is_active=True).order_by("number")
-
+    menu_items = MenuItem.objects.all()
     if request.method == "POST":
         form = ReservationForm(request.POST)
 
@@ -59,6 +60,7 @@ def index(request):
         request,
         "projects/index.html",
         {
+            "menu_items": menu_items,
             "reviews": reviews,
             "table": tables,
             "form": form,

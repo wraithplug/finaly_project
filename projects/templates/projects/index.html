@@ -84,31 +84,21 @@
           <button class="tab" data-filter="sweet">Сладкое</button>
         </div>
         <div class="menu-grid" id="menuGrid">
-          <article class="dish" data-cat="breakfast">
-            <div class="dish-top"><small>Завтрак</small><div class="dish-icon">☀</div></div>
-            <div><h3>Блины</h3><p>Тёплые, домашние, чтобы начать день без спешки.</p></div>
-          </article>
-          <article class="dish" data-cat="lunch">
-            <div class="dish-top"><small>Обед</small><div class="dish-icon">🥣</div></div>
-            <div><h3>Борщ</h3><p>Классика домашней кухни, которую гости часто отмечают.</p></div>
-          </article>
-          <article class="dish" data-cat="lunch">
-            <div class="dish-top"><small>Обед</small><div class="dish-icon">🍽</div></div>
-            <div><h3>Куриные котлеты</h3><p>Одна из самых часто упоминаемых позиций в отзывах.</p></div>
-          </article>
-          <article class="dish" data-cat="lunch">
-            <div class="dish-top"><small>Холодное</small><div class="dish-icon">♨</div></div>
-            <div><h3>Салаты</h3><p>Есть самые классические — позиции лучше уточнить на месте.</p></div>
-          </article>
-          <article class="dish" data-cat="bakery">
-            <div class="dish-top"><small>Выпечка</small><div class="dish-icon">🥐</div></div>
-            <div><h3>Свежая выпечка</h3><p>Пирожки и булочки — отдельная причина заглянуть по дороге.</p></div>
-          </article>
-          <article class="dish" data-cat="sweet">
-            <div class="dish-top"><small>Десерт</small><div class="dish-icon">🍰</div></div>
-            <div><h3>Наполеон</h3><p>Слоёный десерт с кремом — один из сладких фаворитов гостей.</p></div>
-          </article>
-        </div>
+  {% for dish in menu_items %}
+    <article class="dish" data-cat="{{ dish.category }}">
+      <div class="dish-top">
+        <small>{{ dish.get_category_display }}</small>
+        <div class="dish-icon">{{ dish.icon }}</div>
+      </div>
+      <div>
+        <h3>{{ dish.name }}</h3>
+        <p>{{ dish.description }}</p>
+      </div>
+    </article>
+  {% empty %}
+    <p>Меню скоро появится.</p>
+  {% endfor %}
+</div>
       </section>
       
       <section id="atmosphere">

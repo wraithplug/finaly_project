@@ -71,3 +71,23 @@ class Reservation(models.Model):
         ordering = ['date','time']
         verbose_name = "Бронирование"
         verbose_name_plural = "Бронирование"
+
+class MenuItem(models.Model):
+    CATEGORY_CHOICES = (
+        ("breakfast", "Завтрак"),
+        ("lunch", "Обед"),
+        ("bakery", "Выпечка"),
+        ("sweet", "Сладкое"),
+    )
+    name = models.CharField("Название блюда",max_length=200)
+    description = models.TextField("Описание",blank=True)
+    category = models.CharField("Категория",max_length=20,choices=CATEGORY_CHOICES,)
+    icon = models.CharField("Значок",max_length=20,default="🍽️")
+
+    class Meta:
+        verbose_name = "Блюдо меню"
+        verbose_name_plural = "Меню"
+        ordering = ["category", "name"]
+
+    def __str__(self):
+        return self.name
