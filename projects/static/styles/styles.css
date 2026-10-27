@@ -937,3 +937,267 @@ section { padding: 100px 0; }
     border-color: var(--accent);
     color: #fffdf8;
 }
+
+/* Уведомление о бронировании */
+.toast-container {
+  position: fixed;
+  top: 22px;
+  right: 22px;
+  z-index: 9999;
+  width: min(390px, calc(100% - 32px));
+  display: grid;
+  gap: 12px;
+  pointer-events: none;
+}
+
+.booking-toast {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 17px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: 0 16px 50px rgba(0, 0, 0, .16);
+  pointer-events: auto;
+  animation: toast-in .3s ease both;
+}
+
+.toast-check {
+  display: grid;
+  place-items: center;
+  flex: 0 0 30px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #dcebd8;
+  color: #315b2e;
+  font-weight: 800;
+}
+
+.toast-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.toast-content strong {
+  display: block;
+  margin: 2px 0 5px;
+}
+
+.toast-content p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.toast-close {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 23px;
+  cursor: pointer;
+}
+
+.booking-toast.toast-leaving {
+  animation: toast-out .25s ease forwards;
+}
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateY(-12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes toast-out {
+  to { opacity: 0; transform: translateY(-10px); }
+}
+
+/* Кнопка мобильной навигации */
+.mobile-menu-toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  padding: 11px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--paper);
+  cursor: pointer;
+}
+
+.mobile-menu-toggle span {
+  display: block;
+  height: 2px;
+  margin: 4px 0;
+  border-radius: 2px;
+  background: var(--ink);
+}
+
+/* Телефоны и небольшие планшеты */
+@media (max-width: 850px) {
+  .nav {
+    position: relative;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .mobile-menu-toggle {
+    display: block;
+    margin-left: auto;
+  }
+
+  .nav .navlinks {
+    display: none;
+    order: 5;
+    flex: 0 0 100%;
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: var(--paper);
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+  }
+
+  .nav .navlinks.mobile-open {
+    display: flex;
+  }
+
+  .nav .navlinks a {
+    display: block;
+    padding: 12px;
+    border-radius: 10px;
+  }
+
+  .nav .navlinks a:active {
+    background: var(--bg);
+  }
+
+  .navcta {
+    margin-left: 0;
+  }
+
+  .hero {
+    gap: 28px;
+  }
+
+  .booking-widget {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .booking-left,
+  .booking-right {
+    min-width: 0;
+  }
+
+  .booking-tables {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .visit {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .wrap {
+    width: min(100% - 28px, 1180px);
+  }
+
+  section {
+    margin-top: 65px;
+  }
+
+  .hero {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .hero h1 {
+    font-size: clamp(48px, 13vw, 76px);
+  }
+
+  .hero-card {
+    min-height: 260px;
+  }
+
+  .section-head {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .menu-grid,
+  .review-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .photo-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .photo.large {
+    grid-row: auto;
+  }
+
+  .booking-section {
+    padding: 22px 16px;
+  }
+
+  .booking-tables {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .booking-table {
+    min-width: 0;
+  }
+
+  .booking-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .booking-field input,
+  .booking-field textarea {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    font-size: 16px;
+  }
+
+  .booking-submit {
+    width: 100%;
+  }
+
+  .visit-card {
+    padding: 22px 16px;
+  }
+
+  .visit-card .actions {
+    flex-wrap: wrap;
+  }
+
+  .visit-card .actions .btn {
+    flex: 1 1 150px;
+    justify-content: center;
+  }
+
+  .footer {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .toast-container {
+    top: 12px;
+    right: 12px;
+    width: calc(100% - 24px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .booking-toast,
+  .booking-toast.toast-leaving {
+    animation: none;
+  }
+}

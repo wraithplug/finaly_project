@@ -8,19 +8,50 @@
   <link rel="stylesheet" href="{% static 'styles/styles.css' %}">
 </head>
 <body>
+
+{% if messages %}
+  <div class="toast-container" id="toastContainer" aria-live="polite">
+    {% for message in messages %}
+      <div class="booking-toast" role="status">
+        <span class="toast-check">✓</span>
+        <div class="toast-content">
+          <strong>Готово!</strong>
+          <p>{{ message }}</p>
+        </div>
+        <button class="toast-close" type="button" aria-label="Закрыть уведомление">×</button>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
   <div class="app" id="top">
     <div class="wrap">
-      <nav class="nav">
-        <a class="brand" href="#top"><span class="brand-mark">M</span><span>Mamma Mia</span></a>
-        <div class="navlinks">
-          <a href="#about">О нас</a>
-          <a href="#menu">Меню</a>
-          <a href="#atmosphere">Атмосфера</a>
-          <a href="#booking">Бронь столика</a>
-          <a href="#visit">Как найти</a>
-        </div>
-        <button class="navcta" onclick="openModal()">Позвонить</button>
-      </nav>
+
+<nav class="nav">
+  <a class="brand" href="#top">
+    <span class="brand-mark">M</span>
+    <span>Mamma Mia</span>
+  </a>
+
+  <button class="mobile-menu-toggle" id="mobileMenuToggle"
+          type="button" aria-label="Открыть меню"
+          aria-expanded="false" aria-controls="mobileNavlinks">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <div class="navlinks" id="mobileNavlinks">
+    <a href="#about">О нас</a>
+    <a href="#menu">Меню</a>
+    <a href="#atmosphere">Атмосфера</a>
+    <a href="#booking">Бронь столика</a>
+    <a href="#visit">Как найти</a>
+  </div>
+
+  <button class="navcta" onclick="openModal()">Позвонить</button>
+</nav>
+
       
       <header class="hero">
         <div>

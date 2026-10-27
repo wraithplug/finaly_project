@@ -1,5 +1,49 @@
 
 document.addEventListener("DOMContentLoaded", () => {
+    const menuToggle = document.getElementById("mobileMenuToggle");
+    const mobileNav = document.getElementById("mobileNavlinks");
+
+    menuToggle?.addEventListener("click", () => {
+        const isOpen = mobileNav?.classList.toggle("mobile-open") ?? false;
+
+        menuToggle.setAttribute("aria-expanded", String(isOpen));
+        menuToggle.setAttribute(
+            "aria-label",
+            isOpen ? "Закрыть меню" : "Открыть меню"
+        );
+    });
+
+    mobileNav?.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+            mobileNav.classList.remove("mobile-open");
+            menuToggle?.setAttribute("aria-expanded", "false");
+            menuToggle?.setAttribute("aria-label", "Открыть меню");
+        });
+    });
+
+    document.querySelectorAll(".booking-toast").forEach((toast) => {
+        const closeToast = () => {
+            if (!toast.isConnected) return;
+
+            toast.classList.add("toast-leaving");
+            toast.addEventListener("animationend", () => toast.remove(), {
+                once: true
+            });
+
+            // Резерв на случай, если анимация отключена
+            window.setTimeout(() => toast.remove(), 400);
+        };
+
+        toast.querySelector(".toast-close")?.addEventListener(
+            "click",
+            closeToast
+        );
+
+        window.setTimeout(closeToast, 6000);
+    });
+
+
+
     const tabs = document.querySelectorAll(".tab");
     const dishes = document.querySelectorAll(".dish");
 
