@@ -16,8 +16,9 @@ def index(request):
         form = ReservationForm(request.POST)
 
         if form.is_valid():
-            reservation = form.save()
-
+            reservation = form.save(commit=False)
+            reservation.save()
+            form.save_m2m()
             notification_email = getattr(
                 settings,
                 "BOOKING_NOTIFICATION_EMAIL",
@@ -29,7 +30,7 @@ def index(request):
                     "Поступила новая бронь на сайте Mamma Mia!\n\n"
                     f"Имя: {reservation.name}\n"
                     f"Email клиента: {reservation.email}\n"
-                    f"Столик: {reservation.table}\n"
+                    f"Столики: {', '.join(str(table) for table in reservation.tables.all())}\n"
                     f"Дата: {reservation.date}\n"
                     f"Время: {reservation.time}\n"
                     f"Количество гостей: {reservation.guests}\n"

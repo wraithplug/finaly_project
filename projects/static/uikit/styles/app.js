@@ -30,7 +30,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 once: true
             });
 
-            // Резерв на случай, если анимация отключена
             window.setTimeout(() => toast.remove(), 400);
         };
 
@@ -110,10 +109,9 @@ document.addEventListener("DOMContentLoaded", () => {
             selectedTables.has(card.dataset.id)
         );
 
-        // Передаём все ID через запятую
-        tableInput.value = selected
-            .map((card) => card.dataset.id)
-            .join(",");
+    tableInput.value = selected
+        .map((card) => card.dataset.id)
+        .join(",");
 
         const numbers = selected.map(
             (card) => card.dataset.number
@@ -279,8 +277,21 @@ document.addEventListener("DOMContentLoaded", () => {
             if (error) {
                 error.textContent =
                     "Выбери сегодняшнюю или будущую дату.";
-            }
         }
+        return;
+        }
+
+        form.querySelectorAll('input[name="tables"]').forEach((input) => {
+            input.remove();
+        });
+
+        selected.forEach((card) => {
+            const input = document.createElement("input");
+            input.type = "hidden";
+            input.name = "tables";
+            input.value = card.dataset.id;
+            form.appendChild(input);
+        });
     });
 
     updateBooking();

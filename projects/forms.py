@@ -8,7 +8,7 @@ class ReservationForm(forms.ModelForm):
         fields = [
             'name',
             'email',
-            'table',
+            'tables',
             'date',
             'time',
             'guests',
@@ -50,23 +50,28 @@ class ReservationForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.fields["table"].queryset = Table.objects.filter(
+        self.fields["tables"].queryset = Table.objects.filter(
             is_active=True
         ).order_by("number")
+
 
     def clean(self):
         cleaned_data = super().clean()
 
-        table = cleaned_data.get("table")
+        tables = cleaned_data.get("tables")
         guests = cleaned_data.get("guests")
 
-        if table and guests and guests > table.seats:
-            self.add_error(
-                "guests",
-                f"За этим столиком только {table.seats} мест."
-            )
+        if tables and guests:
+            total_seats = sum(table.seats for table in tables)
+
+            if guests > total_seats:
+                self.add_error(
+                    "guests",
+                    f"За выбранными столиками всего {total_seats} мест."
+                )
 
         return cleaned_data
+
 
 
 class ProjectForm(forms.ModelForm):

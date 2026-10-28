@@ -52,7 +52,7 @@
   <button class="navcta" onclick="openModal()">Позвонить</button>
 </nav>
 
-      
+
       <header class="hero">
         <div>
           <div class="eyebrow">Комсомола, 13 · Санкт-Петербург</div>
@@ -73,7 +73,7 @@
         </div>
       </header>
     </div>
-    
+
     <div class="strip">
       <div class="strip-track">
         <span>домашняя кухня</span><span>свежая выпечка</span><span>большие порции</span>
@@ -84,7 +84,7 @@
         <span>завтраки</span><span>обеды</span><span>кофе и компот</span>
       </div>
     </div>
-    
+
     <main class="wrap">
       <section id="about">
         <div class="section-head">
@@ -101,7 +101,7 @@
           <div class="stat"><b>5.0</b><span>рейтинг в Яндекс Картах на момент проверки</span></div>
         </div>
       </section>
-      
+
       <section id="menu">
         <div class="section-head">
           <h2>Что взять<br>сегодня?</h2>
@@ -131,7 +131,7 @@
   {% endfor %}
 </div>
       </section>
-      
+
       <section id="atmosphere">
         <div class="section-head">
           <h2>Свет,<br>дерево, зелень.</h2>
@@ -143,7 +143,7 @@
           <div class="photo"><span class="label">тёплые детали</span></div>
         </div>
       </section>
-      
+
       <section>
         <div class="review-grid">
   {% for review in reviews %}
@@ -282,7 +282,7 @@
       <form method="post" id="quickBooking">
         {% csrf_token %}
 
-        <input type="hidden" name="table" id="bookingTableId" required>
+        <input type="hidden" id="bookingTableId">
 
         <label class="booking-field">
           <span>Твоё имя</span>
@@ -386,7 +386,7 @@
         </div>
       </section>
     </main>
-    
+
     <div class="wrap">
       <footer class="footer">
         <span>© Mamma Mia · Санкт-Петербург</span>
@@ -394,7 +394,7 @@
       </footer>
     </div>
   </div>
-  
+
   <div class="modal" id="modal">
     <div class="modal-box">
       <button class="close" onclick="closeModal()">×</button>

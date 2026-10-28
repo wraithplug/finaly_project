@@ -62,8 +62,7 @@ class Reservation(models.Model):
     date = models.DateField(verbose_name='Дата бронирования')
     guests = models.PositiveSmallIntegerField(verbose_name="Колличество гостей")
     comment = models.TextField(blank=True,verbose_name='Особые пожелания (необязательно)')
-    table = models.ForeignKey(Table,on_delete=models.PROTECT,null=True,blank=True,verbose_name='Столик')
-
+    tables = models.ManyToManyField(Table,blank=True,related_name='reservations',verbose_name='Столики')
     def __str__(self):
         return self.name | self.date | self.time
 
